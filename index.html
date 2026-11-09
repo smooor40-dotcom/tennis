@@ -1,0 +1,9 @@
+<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width"><meta name=apple-mobile-web-app-capable content=yes><title>تنس الطاولة</title><style>body{margin:0;background:#063;color:#fff;font:22px sans-serif;text-align:center}input,button{font:inherit;padding:9px;margin:5px;border:0;border-radius:9px}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}</style><body dir=rtl><div id=m><h2>🏓 تنس الطاولة</h2><input id=a placeholder="اللاعبة الأولى"><input id=b placeholder="اللاعبة الثانية"><br><button onclick=S()>ابدئي</button><h2 id=g></h2><h3>الفايزات</h3><div id=w></div></div><canvas id=c width=800 height=500 hidden></canvas><script>let x=c.getContext('2d'),P=[250,250],s,n,X,Y,U,V,l=0
+function R(){X=400;Y=250;U=Math.random()<.5?-7:7;V=Math.random()*8-4}
+c.onpointerdown=c.onpointermove=e=>P[+(e.clientX>innerWidth/2)]=e.clientY/innerHeight*500
+function S(){s=[0,0];n=[b.value||'الثانية',a.value||'الأولى'];m.hidden=1;c.hidden=0;R();requestAnimationFrame(F)}
+function F(t){let d=Math.min((t-l)/16,3),k=+(X>400);l=t;X+=U*d;Y+=V*d
+if(Y<10&&V<0||Y>490&&V>0)V=-V
+if(U*(k*2-1)>0&&Math.abs(X-400)>360&&Math.abs(Y-P[k])<70){U=Math.max(-20,Math.min(20,-U*1.06));V=(Y-P[k])/6}
+if(X<0||X>800){k=+(X<0);if(++s[k]>4){c.hidden=1;m.hidden=0;g.innerText='🎉 مبروك يا '+n[k];w.innerText='🏆 '+n[k]+' فازت على '+n[1-k]+' ('+s[k]+'-'+s[1-k]+')\n'+w.innerText;a.value=b.value='';return}R()}
+x.fillStyle='#085';x.fillRect(0,0,800,500);x.fillStyle='#fff';x.fillRect(399,0,2,500);x.fillRect(16,P[0]-60,14,120);x.fillRect(770,P[1]-60,14,120);x.beginPath();x.arc(X,Y,10,0,7);x.fill();x.font='28px sans-serif';x.textAlign='center';x.fillText(n[0]+' '+s[0],200,40);x.fillText(n[1]+' '+s[1],600,40);requestAnimationFrame(F)}</script><script>navigator.serviceWorker&&navigator.serviceWorker.register('sw.js')</script>
